@@ -1,12 +1,5 @@
 #! /usr/bin/env Rscript
 
-#####
-# Karyotype test in R
-# Matthew Teasdale
-# 7-12-15
-#####
-
-
 ## index the bam file if needed
 index_bam <- function(input_file){
   index_file <- paste(input_file, ".bai", sep = "")
