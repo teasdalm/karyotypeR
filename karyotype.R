@@ -1,4 +1,6 @@
 #! /usr/bin/env Rscript
+# Rscript to Karyotype BAM files
+
 
 ## index the bam file if needed
 index_bam <- function(input_file){
