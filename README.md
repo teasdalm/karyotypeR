@@ -2,5 +2,5 @@
 
 ```bash
 
-./karyotypeR.r alignment_file.bam
+./karyotype.R alignment_file.bam
 ```
