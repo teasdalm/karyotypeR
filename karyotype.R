@@ -37,9 +37,9 @@ read_idxstats <- function(input_file){
                           stringsAsFactors=FALSE)
 
   # format nicely
-  names(read_info) <- c("chrom", "length", "reads", "other")
+  names(read_info) <- c("chrom", "length", "mapped_reads", "un_mapped_reads")
   read_info$length <- as.numeric(read_info$length)
-  read_info$reads <- as.numeric(read_info$reads)
+  read_info$mapped_reads <- as.numeric(read_info$mapped_reads)
   read_info <- read_info[-nrow(read_info),]
 
   # return data
@@ -53,10 +53,10 @@ plot_data <- function(idx_df, input_file = args[1]){
   message("Plotting data to ---> ", output_file)
   library(ggplot2, quietly = TRUE)
   pdf(output_file)
-  p <- ggplot(idx_df, aes(x=length, y=reads)) +
+  p <- ggplot(idx_df, aes(x=length, y=mapped_reads)) +
     geom_text(aes(label=chrom)) +
     xlab("Chromosome length (bp)") +
-    ylab("Aligned reads") +
+    ylab("Mapped reads") +
     geom_smooth(method=lm)
   print(p)
   garbage <- dev.off()
@@ -65,8 +65,8 @@ plot_data <- function(idx_df, input_file = args[1]){
 ## calculate score as Skoglung et al (2015) wolf paper
 calc_stat <- function(idx_df, chrom_1="chr1", chrom_x="chrX"){
   if(chrom_1 %in% idx_df$chrom & chrom_x %in% idx_df$chrom){
-    chrom_1_stat <- idx_df[idx_df$chrom == chrom_1, "reads"] / idx_df[idx_df$chrom == chrom_1, "length"]
-    chrom_x_stat <- idx_df[idx_df$chrom == chrom_x, "reads"] / idx_df[idx_df$chrom == chrom_x, "length"]
+    chrom_1_stat <- idx_df[idx_df$chrom == chrom_1, "mapped_reads"] / idx_df[idx_df$chrom == chrom_1, "length"]
+    chrom_x_stat <- idx_df[idx_df$chrom == chrom_x, "mapped_reads"] / idx_df[idx_df$chrom == chrom_x, "length"]
     skoglund_score <- chrom_x_stat/chrom_1_stat
     skoglund_score <- round(skoglund_score, 3)
 
