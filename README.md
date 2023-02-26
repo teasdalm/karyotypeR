@@ -1,4 +1,4 @@
-**Beta** program for computing karyoytypes from aDNA data.
+Program for computing karyoytypes from aDNA data.
 
 * Requires ggplot2
 
